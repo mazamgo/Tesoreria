@@ -1,0 +1,115 @@
+﻿@model Tesoreria.Models.Clientes
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Clientes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Idenficacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Idenficacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apellidos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellidos)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDCliente }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#Recibos1" aria-controls="home" role="tab" data-toggle="tab">Detalle Recibos Manera 1</a></li>
+        <li role="presentation"><a href="#Recibos2" aria-controls="profile" role="tab" data-toggle="tab">Detalle Recibos Manera 2</a></li>       
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="Recibos1">
+        
+            <p>
+                @Html.ActionLink("Crear Recibos", "Create", "Recibos")
+            </p>
+            <table class="table">
+
+                @foreach (var item in Model.Recibos)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Clientes.Idenficacion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NoRecibo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Monto)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Recibos", new { id = item.IDRecibo }) |
+                            @Html.ActionLink("Details", "Details", "Recibos", new { id = item.IDRecibo }) |
+                            @Html.ActionLink("Delete", "Delete", "Recibos", new { id = item.IDRecibo })
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        
+        </div>
+        <div role="tabpanel" class="tab-pane" id="Recibos2">
+
+            
+
+        </div>
+       
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+    @{
+        <text>
+        cargarRecibos();
+        </text>
+        
+    }
+        
+    });
+
+
+    function cargarRecibos() {
+       
+        $("#Recibos2").load('@Url.Content("~/Clientes/Recibos/?IDCliente="+Model.IDCliente)');
+    }
+
+</script>
