@@ -8,10 +8,19 @@ using System.Web;
 using System.Web.Mvc;
 using Tesoreria.Models;
 
+
 namespace Tesoreria.Controllers
 {
     public class ClientesController : Controller
     {
+        private class client
+        {
+            public int IDCliente { get; set; }
+            public string Idenficacion { get; set; }
+            public string Nombres { get; set; }
+            public string Apellidos { get; set; }
+        }
+
         private TesoreriaContext db = new TesoreriaContext();
 
         // GET: Clientes
@@ -139,6 +148,27 @@ namespace Tesoreria.Controllers
             db.SaveChanges();
 
             return RedirectToAction("/Details/" + recibos.IDCliente.ToString());
+        }
+
+         [HttpGet]
+         [Route("ListadoCliente")]
+        public JsonResult ListadoCliente() 
+        {
+            var clientes = db.Clientes
+                .Select(x => new client { IDCliente = x.IDCliente, 
+                                          Idenficacion = x.Idenficacion,
+                                          Nombres = x.Nombres,
+                                          Apellidos = x.Apellidos
+                })
+                .OrderBy(x => x.IDCliente);             
+
+            //return new JsonResult { Data = clientes, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            return Json( clientes, JsonRequestBehavior.AllowGet);        
+        }
+
+        public ActionResult List() 
+        {
+            return View();
         }
     }
 }

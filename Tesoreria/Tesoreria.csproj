@@ -177,6 +177,7 @@
     <Content Include="Views\Recibos\Edit.cshtml" />
     <Content Include="Views\Recibos\Index.cshtml" />
     <Content Include="Views\Clientes\Recibos.cshtml" />
+    <Content Include="Views\Clientes\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
