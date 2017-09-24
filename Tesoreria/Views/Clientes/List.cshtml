@@ -1,0 +1,52 @@
+﻿@model Tesoreria.Models.Clientes
+
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+
+    var items = [];
+    var n = 0;
+
+    $(document).ready(function () {
+        @{            
+           <text>
+        fnListClientes();       
+           </text>                        
+        }
+    })
+
+    function fnListClientes() {
+        $.ajax({
+            url: '/Clientes/ListadoCliente',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data, textStatus, xhr) {
+                items = data;
+                n = items.length;
+
+                document.write("<table>" +
+                               "<tr><th>Idenficacion</th>"+
+                                   "<th>Nombres</th>" +
+                                   "<th>Apellidos</th></tr>");
+
+                for (i = 0; i < n; i = i = i + 1) {
+                    document.write("<tr><td>" + items[i].Idenficacion + "</td>" +
+                                       "<td>" + items[i].Nombres + "</td>" +
+                                       "<td>" + items[i].Apellidos + "</td></tr>")
+                }
+
+                document.write("</table>");
+
+                console.log(data);
+                console.log(n);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.log('Error in Operation');
+            }
+        });
+    }
+
+</script>
